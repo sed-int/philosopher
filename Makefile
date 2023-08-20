@@ -14,7 +14,7 @@ LINE_CLEAR  =   "\x1b[1A\x1b[M"
 #-------------------------------------------
 
 SRCDIR		=	./srcs
-SRC			=	main.c ft_atoi.c
+SRC			=	main.c philo.c routine.c utils.c
 
 SRC			:=	$(addprefix $(SRCDIR)/, $(SRC))
 OBJ			=	$(SRC:.c=.o)
