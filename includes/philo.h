@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 14:19:24 by hcho2             #+#    #+#             */
-/*   Updated: 2023/08/20 16:13:23 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/08/20 17:27:35 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <sys/time.h>
 
+typedef struct timeval	t_time;
 /* input */
 typedef struct s_arg
 {
@@ -33,15 +34,20 @@ typedef struct s_philo
 {
 	pthread_t	philo_handle;
 	int			num;
-	bool		die_flag;
+	t_time		start_time;
+	t_time		last_eat_time;
+	t_time		last_sleep_time;
+	int			status;
 }	t_philo;
 
 typedef struct s_env
 {
+	t_arg			arg;
 	t_philo			*philo;
 	int				*forks;
 	pthread_mutex_t	*mutex;
 	int				start_time;
+	int				die_flag;
 }	t_env;
 
 /* main */
