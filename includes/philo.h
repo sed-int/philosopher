@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyunminjo <hyunminjo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 14:19:24 by hcho2             #+#    #+#             */
-/*   Updated: 2023/08/21 17:01:02 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/08/21 20:27:22 by hyunminjo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ typedef struct s_arg
 
 typedef struct s_philo
 {
-	pthread_t	handle;
-	int			num;
-	int			eat_cnt;
-	int			start_time;
-	int			last_eat_time;
-	int			last_sleep_time;
-	enum e_stat	stat;
-	t_env		*env;
-	t_time		tv;
+	pthread_t		thr;
+	int				num;
+	int				eat_cnt;
+	int				start_time;
+	int				last_eat_time;
+	int				last_sleep_time;
+	enum e_stat		stat;
+	struct s_env	*env;
+	t_time			tv;
 }	t_philo;
 
 typedef struct s_env
@@ -66,7 +66,7 @@ typedef struct s_env
 void	philo(char	**av);
 
 /* routine */
-void	routine(void *philo);
+void	*routine(void *philo);
 void	kill_philo(t_env *env, t_philo *philo);
 
 /* utils */
