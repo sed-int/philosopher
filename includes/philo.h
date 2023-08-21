@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 14:19:24 by hcho2             #+#    #+#             */
-/*   Updated: 2023/08/20 17:27:35 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/08/21 17:01:02 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,18 @@
 
 typedef struct timeval	t_time;
 /* input */
+
+enum e_stat
+{
+	EATING,
+	THINKING,
+	SLEEPING,
+	DEAD
+};
+
 typedef struct s_arg
 {
-	int	number;
+	int	number_of_philos;
 	int	time_to_die;
 	int	time_to_eat;
 	int	time_to_sleep;
@@ -32,26 +41,33 @@ typedef struct s_arg
 
 typedef struct s_philo
 {
-	pthread_t	philo_handle;
+	pthread_t	handle;
 	int			num;
-	t_time		start_time;
-	t_time		last_eat_time;
-	t_time		last_sleep_time;
-	int			status;
+	int			eat_cnt;
+	int			start_time;
+	int			last_eat_time;
+	int			last_sleep_time;
+	enum e_stat	stat;
+	t_env		*env;
+	t_time		tv;
 }	t_philo;
 
 typedef struct s_env
 {
 	t_arg			arg;
-	t_philo			*philo;
-	int				*forks;
+	t_philo			*philos;
+	char			*forks;
 	pthread_mutex_t	*mutex;
 	int				start_time;
-	int				die_flag;
+	int				is_dead;
 }	t_env;
 
 /* main */
 void	philo(char	**av);
+
+/* routine */
+void	routine(void *philo);
+void	kill_philo(t_env *env, t_philo *philo);
 
 /* utils */
 int		ft_atoi(const char *str);
