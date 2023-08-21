@@ -6,7 +6,7 @@
 /*   By: hyunminjo <hyunminjo@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 15:19:44 by hcho2             #+#    #+#             */
-/*   Updated: 2023/08/21 20:19:34 by hyunminjo        ###   ########.fr       */
+/*   Updated: 2023/08/22 00:36:19 by hyunminjo        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	init_philo(t_env *env, t_philo *philos)
 		philos[i].last_sleep_time = 0;
 		philos[i].stat = THINKING;
 		philos[i].env = env;
+		i++;
 	}
 	i = 0;
 	while (i < env->arg.number_of_philos)
@@ -63,7 +64,7 @@ void	philo(char	**av)
 	int		i;
 
 	init_env(&env, av);
-	i = 0;
-	while (i < env.arg.number_of_philos)
-		init_philo(&env, &env.philos[i++]);
+	i = -1;
+	while (++i < env.arg.number_of_philos)
+		init_philo(&env, &env.philos[i]);
 }

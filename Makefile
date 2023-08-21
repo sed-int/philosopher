@@ -22,7 +22,7 @@ OBJ			=	$(SRC:.c=.o)
 
 NAME		= philo
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -fsanitize=thread
+CFLAGS		= -Wall -Wextra -Werror
 INC			= -Iincludes
 
 all:		$(NAME)
