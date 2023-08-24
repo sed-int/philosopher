@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunminjo <hyunminjo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:50:04 by hcho2             #+#    #+#             */
-/*   Updated: 2023/08/21 20:28:55 by hyunminjo        ###   ########.fr       */
+/*   Updated: 2023/08/24 10:07:03 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,30 @@ void	kill_philo(t_env *env, t_philo *philo)
 {
 	int	current;
 
-	gettimeofday(&philo->tv, 0);
-	current = philo->tv.tv_usec - philo->last_eat_time;
-	if (current > env->arg.time_to_die)
+	current = get_time();
+	if (current - philo->last_eat_time > env->arg.time_to_die)
 		env->is_dead = philo->num;
+}
+
+long	get_time(void)
+{
+	t_time	tv;
+
+	gettimeofday(&tv, 0);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+
+int	ft_usleep(long time)
+{
+	long	start;
+
+	start = get_time();
+	while (get_time() - start < time)
+		usleep(100);
+	return (1);
+}
+
+int	is_dead(t_philo *philo, t_env *env)
+{
+	return (get_time() - philo->last_eat_time > env->arg.time_to_die);
 }

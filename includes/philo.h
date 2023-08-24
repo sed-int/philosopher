@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyunminjo <hyunminjo@student.42.fr>        +#+  +:+       +#+        */
+/*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 14:19:24 by hcho2             #+#    #+#             */
-/*   Updated: 2023/08/21 20:59:28 by hyunminjo        ###   ########.fr       */
+/*   Updated: 2023/08/24 10:24:06 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,6 @@
 typedef struct timeval	t_time;
 /* input */
 
-enum e_stat
-{
-	EATING,
-	THINKING,
-	SLEEPING,
-	DEAD
-};
-
 typedef struct s_arg
 {
 	int	number_of_philos;
@@ -44,12 +36,11 @@ typedef struct s_philo
 	pthread_t		thr;
 	int				num;
 	int				eat_cnt;
-	int				start_time;
-	int				last_eat_time;
+	long			last_eat_time;
 	int				last_sleep_time;
-	enum e_stat		stat;
+	int				left;
+	int				right;
 	struct s_env	*env;
-	t_time			tv;
 }	t_philo;
 
 typedef struct s_env
@@ -58,19 +49,31 @@ typedef struct s_env
 	t_philo			*philos;
 	char			*forks;
 	pthread_mutex_t	*mutex;
-	int				start_time;
+	pthread_mutex_t	dead_mutex;
 	int				is_dead;
+	long			start_time;
 }	t_env;
 
 /* main */
 void	philo(char	**av);
 
+/* init */
+void	init_env(t_env *env, char **av);
+void	init_philo(t_env *env, t_philo *philos);
+
+/* monitor */
+void	*monitor(void *arg);
+
 /* routine */
 void	*routine(void *philo);
 void	kill_philo(t_env *env, t_philo *philo);
+long	get_time(void);
+int		ft_usleep(long time);
+int		is_dead(t_philo *philo, t_env *env);
 
 /* utils */
 int		ft_atoi(const char *str);
-char	*ft_itoa(int n);
+void	free_all(t_env *env);
+void	print_msg(t_philo *philo, char *msg);
 
 #endif

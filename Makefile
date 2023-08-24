@@ -14,8 +14,8 @@ LINE_CLEAR  =   "\x1b[1A\x1b[M"
 #-------------------------------------------
 
 SRCDIR		=	./srcs
-SRC			=	main.c philo.c routine.c \
-				utils.c routine_utils.c
+SRC			=	main.c init.c \
+				routine.c routine_utils.c utils.c
 
 SRC			:=	$(addprefix $(SRCDIR)/, $(SRC))
 OBJ			=	$(SRC:.c=.o)
@@ -24,6 +24,7 @@ NAME		= philo
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
 INC			= -Iincludes
+FSAN		= -fsanitize=thread
 
 all:		$(NAME)
 
