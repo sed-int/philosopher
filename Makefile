@@ -14,7 +14,7 @@ LINE_CLEAR  =   "\x1b[1A\x1b[M"
 #-------------------------------------------
 
 SRCDIR		=	./srcs
-SRC			=	main.c init.c \
+SRC			=	main.c init.c monitor.c \
 				routine.c routine_utils.c utils.c
 
 SRC			:=	$(addprefix $(SRCDIR)/, $(SRC))

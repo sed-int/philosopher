@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 15:42:08 by hcho2             #+#    #+#             */
-/*   Updated: 2023/08/24 10:32:54 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/08/24 11:49:19 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,10 @@
 
 void	free_all(t_env *env)
 {
-	int	i;
-
-	i = 0;
-	while (i < env->arg.number_of_philos)
-	{
-		free(&env->philos[i]);
-		free(&env->forks[i]);
-		free(&env->mutex[i]);
-		i++;
-	}
+	free(env->philos);
+	free(env->forks);
+	free(env->mutex);
+	free(env);
 }
 
 void	print_msg(t_philo *philo, char *msg)
@@ -31,8 +25,10 @@ void	print_msg(t_philo *philo, char *msg)
 	long	current;
 
 	current = get_time() - philo->env->start_time;
+	pthread_mutex_lock(&philo->env->dead_mutex);
 	if (philo->env->is_dead == -1)
 		printf("%ld %d %s\n", current, philo->num, msg);
+	pthread_mutex_unlock(&philo->env->dead_mutex);
 }
 
 int	ft_atoi(const char *str)

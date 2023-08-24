@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 14:19:24 by hcho2             #+#    #+#             */
-/*   Updated: 2023/08/24 10:24:06 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/08/24 14:24:33 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_env
 	pthread_mutex_t	*mutex;
 	pthread_mutex_t	dead_mutex;
 	int				is_dead;
+	int				is_over;
 	long			start_time;
 }	t_env;
 

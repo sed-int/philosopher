@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 15:37:36 by hcho2             #+#    #+#             */
-/*   Updated: 2023/08/24 10:34:39 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/08/24 11:48:23 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	*routine(void *data)
 	philo->last_eat_time = get_time();
 	if (philo->num % 2)
 		ft_usleep(philo->env->arg.time_to_sleep);
-	while (philo->env->is_dead == -1)
+	while (philo->env->is_dead < 0)
 	{
 		pick_forks(philo->env, philo);
 		eat_meal(philo->env, philo);
