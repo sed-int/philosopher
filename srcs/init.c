@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:25:59 by hcho2             #+#    #+#             */
-/*   Updated: 2023/08/25 18:19:19 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/08/25 18:33:58 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	init_env(t_env *env, char **av)
 	env->forks = malloc(sizeof(char) * env->arg.number_of_philos);
 	env->mutex = malloc(sizeof(pthread_mutex_t) * env->arg.number_of_philos);
 	env->start_time = get_time();
+	env->is_dead = -1;
 	env->is_over = !is_valid(env);
 	env->eat_cnt = 0;
 	i = -1;
@@ -60,7 +61,6 @@ void	init_philo(t_env *env, t_philo *philos)
 		philos[i].num = i + 1;
 		philos[i].eat_cnt = 0;
 		philos[i].last_eat_time = 0;
-		philos[i].is_dead = 0;
 		philos[i].last_sleep_time = 0;
 		philos[i].env = env;
 		philos[i].left = i;
