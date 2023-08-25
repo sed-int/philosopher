@@ -6,11 +6,26 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 13:25:59 by hcho2             #+#    #+#             */
-/*   Updated: 2023/08/24 14:24:42 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/08/25 18:19:19 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	is_valid(t_env *env)
+{
+	if (env->arg.number_of_philos <= 0)
+		return (0);
+	else if (env->arg.time_to_die <= 0)
+		return (0);
+	else if (env->arg.time_to_eat <= 0)
+		return (0);
+	else if (env->arg.time_to_sleep <= 0)
+		return (0);
+	else if (env->arg.must_eat_count <= 0)
+		return (0);
+	return (1);
+}
 
 void	init_env(t_env *env, char **av)
 {
@@ -26,9 +41,9 @@ void	init_env(t_env *env, char **av)
 	env->philos = malloc(sizeof(t_philo) * env->arg.number_of_philos);
 	env->forks = malloc(sizeof(char) * env->arg.number_of_philos);
 	env->mutex = malloc(sizeof(pthread_mutex_t) * env->arg.number_of_philos);
-	env->is_dead = -1;
-	env->is_dead = 0;
 	env->start_time = get_time();
+	env->is_over = !is_valid(env);
+	env->eat_cnt = 0;
 	i = -1;
 	while (++i < env->arg.number_of_philos)
 		pthread_mutex_init(env->mutex + i, NULL);
@@ -45,6 +60,7 @@ void	init_philo(t_env *env, t_philo *philos)
 		philos[i].num = i + 1;
 		philos[i].eat_cnt = 0;
 		philos[i].last_eat_time = 0;
+		philos[i].is_dead = 0;
 		philos[i].last_sleep_time = 0;
 		philos[i].env = env;
 		philos[i].left = i;

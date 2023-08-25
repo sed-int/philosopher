@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 15:42:08 by hcho2             #+#    #+#             */
-/*   Updated: 2023/08/24 11:49:19 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/08/25 17:02:44 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,7 @@ int	ft_atoi(const char *str)
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 		ret = ret * 10 + str[i++] - '0';
+	if (str[i])
+		return (-1);
 	return (sign * ret);
 }

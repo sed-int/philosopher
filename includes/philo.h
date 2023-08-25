@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 14:19:24 by hcho2             #+#    #+#             */
-/*   Updated: 2023/08/24 14:24:33 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/08/25 18:18:53 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_philo
 	int				last_sleep_time;
 	int				left;
 	int				right;
+	int				is_dead;
 	struct s_env	*env;
 }	t_philo;
 
@@ -50,8 +51,8 @@ typedef struct s_env
 	char			*forks;
 	pthread_mutex_t	*mutex;
 	pthread_mutex_t	dead_mutex;
-	int				is_dead;
 	int				is_over;
+	int				eat_cnt;
 	long			start_time;
 }	t_env;
 
@@ -63,11 +64,11 @@ void	init_env(t_env *env, char **av);
 void	init_philo(t_env *env, t_philo *philos);
 
 /* monitor */
-void	*monitor(void *arg);
+void	*count_monitor(void *arg);
+void	*death_monitor(void *arg);
 
 /* routine */
 void	*routine(void *philo);
-void	kill_philo(t_env *env, t_philo *philo);
 long	get_time(void);
 int		ft_usleep(long time);
 int		is_dead(t_philo *philo, t_env *env);
