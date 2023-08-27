@@ -6,20 +6,11 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:50:04 by hcho2             #+#    #+#             */
-/*   Updated: 2023/08/25 14:28:42 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/08/27 13:32:32 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	kill_philo(t_env *env, t_philo *philo)
-{
-	int	current;
-
-	current = get_time();
-	if (current - philo->last_eat_time > env->arg.time_to_die)
-		env->is_dead = philo->num;
-}
 
 long	get_time(void)
 {

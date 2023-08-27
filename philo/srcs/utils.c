@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 15:42:08 by hcho2             #+#    #+#             */
-/*   Updated: 2023/08/25 17:02:44 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/08/27 15:16:37 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	print_msg(t_philo *philo, char *msg)
 {
 	long	current;
 
+	pthread_mutex_lock(&philo->env->over_mutex);
 	current = get_time() - philo->env->start_time;
-	pthread_mutex_lock(&philo->env->dead_mutex);
-	if (philo->env->is_dead == -1)
+	if (!philo->env->is_over)
 		printf("%ld %d %s\n", current, philo->num, msg);
-	pthread_mutex_unlock(&philo->env->dead_mutex);
+	pthread_mutex_unlock(&philo->env->over_mutex);
 }
 
 int	ft_atoi(const char *str)
