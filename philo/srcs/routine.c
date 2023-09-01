@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 15:37:36 by hcho2             #+#    #+#             */
-/*   Updated: 2023/08/27 15:16:37 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/09/01 13:36:29 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void	pick_forks(t_env *env, t_philo *philo)
 {
 	pthread_mutex_lock(&env->mutex[philo->left]);
 	print_msg(philo, "has taken a fork");
-	if (env->is_over)
+	if (is_over(env))
 	{
 		pthread_mutex_unlock(&env->mutex[philo->left]);
 		return ;
 	}
 	pthread_mutex_lock(&env->mutex[philo->right]);
 	print_msg(philo, "has taken a fork");
-	if (env->is_over)
+	if (is_over(env))
 	{
 		pthread_mutex_unlock(&env->mutex[philo->right]);
 		pthread_mutex_unlock(&env->mutex[philo->left]);
@@ -33,27 +33,19 @@ void	pick_forks(t_env *env, t_philo *philo)
 
 void	eat_meal(t_env *env, t_philo *philo)
 {
-	if (env->is_over)
+	if (is_over(env))
 		return ;
 	philo->last_eat_time = get_time();
 	print_msg(philo, "is eating");
-	philo->eat_cnt++;
 	ft_usleep(env->arg.time_to_eat);
+	philo->eat_cnt++;
 	pthread_mutex_unlock(&env->mutex[philo->right]);
 	pthread_mutex_unlock(&env->mutex[philo->left]);
 }
 
 void	sleep_philo(t_env *env, t_philo *philo)
 {
-	// if (is_dead(philo, env))
-	// {
-	// 	pthread_mutex_lock(&env->over_mutex);
-	// 	if (!env->is_over)
-	// 		philo->is_dead = 1;
-	// 	pthread_mutex_unlock(&env->over_mutex);
-	// 	return ;
-	// }
-	if (env->is_over)
+	if (is_over(env))
 		return ;
 	print_msg(philo, "is sleeping");
 	ft_usleep(env->arg.time_to_sleep);
@@ -61,15 +53,7 @@ void	sleep_philo(t_env *env, t_philo *philo)
 
 void	think_philo(t_env *env, t_philo *philo)
 {
-	// if (is_dead(philo, env))
-	// {
-	// 	pthread_mutex_lock(&env->over_mutex);
-	// 	if (!env->is_over)
-	// 		philo->is_dead = 1;
-	// 	pthread_mutex_unlock(&env->over_mutex);
-	// 	return ;
-	// }
-	if (env->is_over)
+	if (is_over(env))
 		return ;
 	print_msg(philo, "is thinking");
 }

@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 15:42:08 by hcho2             #+#    #+#             */
-/*   Updated: 2023/08/27 15:16:37 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/09/01 13:33:04 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,6 @@ void	free_all(t_env *env)
 	free(env->forks);
 	free(env->mutex);
 	free(env);
-}
-
-void	print_msg(t_philo *philo, char *msg)
-{
-	long	current;
-
-	pthread_mutex_lock(&philo->env->over_mutex);
-	current = get_time() - philo->env->start_time;
-	if (!philo->env->is_over)
-		printf("%ld %d %s\n", current, philo->num, msg);
-	pthread_mutex_unlock(&philo->env->over_mutex);
 }
 
 int	ft_atoi(const char *str)

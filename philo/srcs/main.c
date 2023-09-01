@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 14:25:06 by hcho2             #+#    #+#             */
-/*   Updated: 2023/08/27 15:16:37 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/09/01 13:40:08 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ void	philo(char	**av)
 
 	env = malloc(sizeof(t_env));
 	init_env(env, av);
+	if (env->is_over)
+	{
+		free_all(env);
+		printf("Error: invalid argument.\n");
+		return ;
+	}
 	pthread_create(&monitor_thr[0], 0, count_monitor, env);
 	pthread_create(&monitor_thr[1], 0, death_monitor, env);
 	init_philo(env, env->philos);

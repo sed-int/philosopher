@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 14:19:24 by hcho2             #+#    #+#             */
-/*   Updated: 2023/08/27 15:16:37 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/09/01 13:46:24 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 
 typedef struct timeval	t_time;
 /* input */
+
+# define DEAD 1
+# define OVER 2
 
 typedef struct s_arg
 {
@@ -71,11 +74,12 @@ void	*death_monitor(void *arg);
 void	*routine(void *philo);
 long	get_time(void);
 int		ft_usleep(long time);
+void	print_msg(t_philo *philo, char *msg);
 int		is_dead(t_philo *philo, t_env *env);
+int		is_over(t_env *env);
 
 /* utils */
 int		ft_atoi(const char *str);
 void	free_all(t_env *env);
-void	print_msg(t_philo *philo, char *msg);
 
 #endif
